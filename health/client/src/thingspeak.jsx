@@ -12,6 +12,7 @@ const ThingSpeakComponent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [alertSent, setAlertSent] = useState(false); // Track whether alert has been sent
+  const [previousTimestamp, setPreviousTimestamp] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,16 +24,17 @@ const ThingSpeakComponent = () => {
         }
 
         const result = await response.json();
-        const latestEntry = result.feeds[result.feeds.length - 1]; // Access the last entry
+        const latestEntry = result.feeds[result.feeds.length - 1];
 
-        // Check if field1 is less than 70 and alert has not been sent
-        if (parseFloat(latestEntry.field1) < 70 && !alertSent) {
+        // Check if timestamp has changed and alert has not been sent
+        if (latestEntry.created_at !== previousTimestamp && parseFloat(latestEntry.field1) < 70 && !alertSent) {
           sendAlertToServer(latestEntry.field1);
-          setAlertSent(true); // Mark the alert as sent
+          setAlertSent(true);
         } else {
-          setAlertSent(false); // Reset alertSent if field1 is not less than 70
+          setAlertSent(false);
         }
 
+        setPreviousTimestamp(latestEntry.created_at);
         setLatestEntry(latestEntry);
       } catch (error) {
         setError(error.message);
@@ -48,7 +50,7 @@ const ThingSpeakComponent = () => {
 
     // Clean up the interval when the component is unmounted
     return () => clearInterval(fetchDataInterval);
-  }, [apiUrl, alertSent]);
+  }, [apiUrl, alertSent, previousTimestamp]);
 
   const sendAlertToServer = async (field1Value) => {
     try {

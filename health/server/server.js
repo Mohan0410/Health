@@ -31,7 +31,7 @@ app.get("/send-alert", async (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-  res.status(200).json({ success: false, message: "Error sending alert" });
+  res.status(200).json({ success: true, message: "client is connected" });
 });
 
 app.listen(8080, () => {

@@ -53,7 +53,7 @@ async function fetchDataAndSendAlert() {
       if (thingSpeakData.entry_id > previousEntryCount) {
         // if (field1Value < 90 || field1Value > 100) {
           const message = await client.messages.create({
-            body : `Field1 value is ${
+            body : `BPM value is ${
               field1Value < 60 ? 'low' : field1Value > 100 ? 'high' : 'normal'
             }: ${field1Value}`,
             from: 'whatsapp:+14155238886',

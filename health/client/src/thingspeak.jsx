@@ -6,7 +6,7 @@ const ThingSpeakComponent = () => {
   const apiKey = 'R2GEDN121S9EWYOF';
 
   const apiUrl = `https://api.thingspeak.com/channels/${channelID}/feeds.json?api_key=${apiKey}`;
-  const serverEndpoint = 'http://localhost:8080';
+  const serverEndpoint = 'https://health-server.vercel.app/';
 
   const [latestEntry, setLatestEntry] = useState(null);
   const [loading, setLoading] = useState(true);

@@ -41,7 +41,7 @@ const AllDataComponent = () => {
   };
 
   return (
-    <div className='w-[80%] ml-[10%]'>
+    <div className='w-[80%] ml-[10%] '>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {allData && (

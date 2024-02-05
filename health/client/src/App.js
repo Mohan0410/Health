@@ -11,7 +11,7 @@ const App = () => {
           <h1 className="w-[100%] h-[10vh] text-white text-3xl p-4">
             <Link to="/">Health report</Link>
           </h1>
-          <h1 className="w-[100%] h-[10vh] text-white text-xl p-4 flex flex-row-reverse">
+          <h1 className="w-[100%] h-[10vh] text-white text-lg p-4 flex items-center flex-row-reverse">
             <Link to="/alldata">Show all reports</Link>
           </h1>
         </header>

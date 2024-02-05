@@ -48,18 +48,19 @@ const ThingSpeakComponent = () => {
 
   return (
     <div className='flex justify-center items-center pt-10'>
-      <div className='text-lg border p-10'>
+      <div className='text-lg border p-10 border-slate-600'>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
         {latestEntry && (
           <div>
-            <h2>Latest ThingSpeak Entry</h2>
-            <img src={download}></img>
+            <h2 className='font-bold l'>Latest ThingSpeak Entry</h2>
+            <img className='' src={download}></img>
             <p className='flex justify-between'><span className='font-semibold'>Name :</span> User_name</p>
             <p className='flex justify-between'><span className='font-semibold'>Heart rate :</span> {latestEntry.field1}</p>
             <p className='flex justify-between'><span className='font-semibold'>Created At :</span></p>
             <p className='flex justify-between'><span className='font-semibold'>Date :</span> {formatDateTime(latestEntry.created_at).formattedDate}</p>
             <p className='flex justify-between'><span className='font-semibold'>Time :</span> {formatDateTime(latestEntry.created_at).formattedTime}</p>
+            
           </div>
         )}
       </div>

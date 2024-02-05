@@ -30,7 +30,7 @@ app.get("/send-alert", async (req, res) => {
   }
 });
 
-app.get("/send-alert", async (req, res) => {
+app.get("/", async (req, res) => {
   res.status(200).json({ success: false, message: "Error sending alert" });
 });
 

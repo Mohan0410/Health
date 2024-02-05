@@ -55,13 +55,13 @@ const ThingSpeakComponent = () => {
 
   const sendAlertToServer = async (field1Value) => {
     try {
-      const response = await fetch(`${serverEndpoint}/send-alert?field1Value=${field1Value}`);
+      const response = await fetch(`${serverEndpoint}send-alert?field1Value=${field1Value}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const result = await response.json();
+      const result = await response;
       console.log(result); // Log the response from the server
 
       if (result.success) {
@@ -74,8 +74,9 @@ const ThingSpeakComponent = () => {
     }
   };
   const check = async (field1Value) => {
+    console.log("check")
     try {
-      const response = await fetch(`${serverEndpoint}/`);
+      const response = await fetch(`${serverEndpoint}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -90,7 +91,7 @@ const ThingSpeakComponent = () => {
         console.error('Error sending alert:', result.message);
       }
     } catch (error) {
-      console.error('Error sending alert:', error.message);
+      console.error('PK:', error.message);
     }
   };
   const formatDateTime = (dateTimeString) => {

@@ -6,7 +6,7 @@ const ThingSpeakComponent = () => {
   const apiKey = 'R2GEDN121S9EWYOF';
 
   const apiUrl = `https://api.thingspeak.com/channels/${channelID}/feeds.json?api_key=${apiKey}`;
-  const serverEndpoint = 'https://health-server.vercel.app/';
+  const serverEndpoint = 'https://health-server-mohan.onrender.com/';
 
   const [latestEntry, setLatestEntry] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -41,6 +41,7 @@ const ThingSpeakComponent = () => {
       } finally {
         setLoading(false);
       }
+      setTimeout(check , 2000);
     };
 
     // Fetch data every 5 seconds (adjust as needed)
@@ -72,7 +73,26 @@ const ThingSpeakComponent = () => {
       console.error('Error sending alert:', error.message);
     }
   };
+  const check = async (field1Value) => {
+    try {
+      const response = await fetch(`${serverEndpoint}/`);
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log(result); // Log the response from the server
+
+      if (result.success) {
+        console.log('Alert sent successfully.');
+      } else {
+        console.error('Error sending alert:', result.message);
+      }
+    } catch (error) {
+      console.error('Error sending alert:', error.message);
+    }
+  };
   const formatDateTime = (dateTimeString) => {
     const dateTime = new Date(dateTimeString);
     const formattedDate = dateTime.toLocaleDateString();

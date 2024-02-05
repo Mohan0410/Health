@@ -12,7 +12,10 @@ const ThingSpeakComponent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [alertSent, setAlertSent] = useState(false); // Track whether alert has been sent
-  const [previousTimestamp, setPreviousTimestamp] = useState(null);
+  const currentDate = new Date();
+const formattedDate = currentDate.toISOString();
+
+  const [previousTimestamp, setPreviousTimestamp] = useState(formattedDate);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,15 +30,19 @@ const ThingSpeakComponent = () => {
         const latestEntry = result.feeds[result.feeds.length - 1];
 
         // Check if timestamp has changed and alert has not been sent
+        console.log(latestEntry.created_at)
+        console.log(previousTimestamp)
         if (latestEntry.created_at !== previousTimestamp && parseFloat(latestEntry.field1) < 70 && !alertSent) {
           sendAlertToServer(latestEntry.field1);
           setAlertSent(true);
+          setPreviousTimestamp(latestEntry.created_at);
+          setLatestEntry(latestEntry);
         } else {
           setAlertSent(false);
         }
 
-        setPreviousTimestamp(latestEntry.created_at);
-        setLatestEntry(latestEntry);
+        
+        
       } catch (error) {
         setError(error.message);
       } finally {

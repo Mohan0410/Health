@@ -47,15 +47,15 @@ async function fetchDataAndSendAlert() {
     const thingSpeakData = await fetchDataFromThingSpeak();
 
     if (thingSpeakData && thingSpeakData.field1 && thingSpeakData.created_at) {
-      const field1Value = parseFloat(thingSpeakData.field1);
+      const field1Value = parseFloat(thingSpeakData.field3);
 
       // Check if the number of entries has increased (indicating a new entry)
       if (thingSpeakData.entry_id > previousEntryCount) {
         // if (field1Value < 90 || field1Value > 100) {
           const message = await client.messages.create({
-            body : `BPM value is ${
+            body : `Heart rate value is ${
               field1Value < 60 ? 'low' : field1Value > 100 ? 'high' : 'normal'
-            }: ${field1Value}`,
+            }: ${field1Value} Bp value is ${thingSpeakData.field1}/${thingSpeakData.field2}`,
             from: 'whatsapp:+14155238886',
             to: 'whatsapp:+919059703577'
           });

@@ -9,6 +9,7 @@ const ThingSpeakComponent = () => {
   const [latestEntry, setLatestEntry] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [name, setName] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +21,9 @@ const ThingSpeakComponent = () => {
         }
 
         const result = await response.json();
+        setName(result.channel.name)
         const latestEntry = result.feeds[result.feeds.length - 1];
+        
 
         setLatestEntry(latestEntry);
       } catch (error) {
@@ -55,8 +58,13 @@ const ThingSpeakComponent = () => {
           <div>
             <h2 className='font-bold l'>Latest ThingSpeak Entry</h2>
             <img className='' src={download}></img>
-            <p className='flex justify-between'><span className='font-semibold'>Name :</span> User_name</p>
-            <p className='flex justify-between'><span className='font-semibold'>Heart rate :</span> {latestEntry.field1}</p>
+            <p className='flex justify-between'><span className='font-semibold'>Name :</span> {name}</p>
+            <p className='flex justify-between'><span className='font-semibold'>Blood Pressure :</span> {latestEntry.field1}/{latestEntry.field2}</p>
+            <p className='flex justify-between'><span className='font-semibold'>HeartRate :</span> {latestEntry.field3}</p>
+            <p className='flex justify-between'><span className='font-semibold'>SPO2 :</span> {latestEntry.field5}</p>
+            <p className='flex justify-between'><span className='font-semibold'>Temperature :</span> {latestEntry.field4}</p>
+
+
             <p className='flex justify-between'><span className='font-semibold'>Created At :</span></p>
             <p className='flex justify-between'><span className='font-semibold'>Date :</span> {formatDateTime(latestEntry.created_at).formattedDate}</p>
             <p className='flex justify-between'><span className='font-semibold'>Time :</span> {formatDateTime(latestEntry.created_at).formattedTime}</p>

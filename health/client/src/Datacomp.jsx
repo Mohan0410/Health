@@ -50,7 +50,10 @@ const AllDataComponent = () => {
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
               <tr>
+              <th className="py-3 px-6 text-left bg-gray-100">Blood Pressure</th>
                 <th className="py-3 px-6 text-left bg-gray-100">Heart Rate</th>
+                <th className="py-3 px-6 text-left bg-gray-100">Temperature</th>
+                <th className="py-3 px-6 text-left bg-gray-100">SPO2</th>
                 <th className="py-3 px-6 text-left bg-gray-100">Created At</th>
                 <th className="py-3 px-6 text-left bg-gray-100">Time</th>
               </tr>
@@ -58,7 +61,10 @@ const AllDataComponent = () => {
             <tbody>
               {[...allData].reverse().map((entry) => (
                 <tr key={entry.created_at}>
-                  <td className="py-2 px-6">{entry.field1}</td>
+                  <td className="py-2 px-6">{entry.field1}/{entry.field2}</td>
+                  <td className="py-2 px-6">{entry.field3}</td>
+                  <td className="py-2 px-6">{entry.field4}</td>
+                  <td className="py-2 px-6">{entry.field5}</td>
                   <td className="py-2 px-6">{formatDateTime(entry.created_at).formattedDate}</td>
                   <td className="py-2 px-6">{formatDateTime(entry.created_at).formattedTime}</td>
                 </tr>

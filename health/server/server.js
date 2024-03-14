@@ -55,7 +55,7 @@ async function fetchDataAndSendAlert() {
           const message = await client.messages.create({
             body : `Heart rate value is ${
               field1Value < 60 ? 'low' : field1Value > 100 ? 'high' : 'normal'
-            }: ${field1Value} Bp value is ${thingSpeakData.field1}/${thingSpeakData.field2}`,
+            }: ${field1Value} Bp value is ${thingSpeakData.field1}/${thingSpeakData.field2} temperature value is ${thingSpeakData.field4} SPO2 value is ${thingSpeakData.field5}`,
             from: 'whatsapp:+14155238886',
             to: 'whatsapp:+919059703577'
           });

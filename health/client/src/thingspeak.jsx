@@ -32,7 +32,7 @@ const ThingSpeakComponent = () => {
         setLoading(false);
       }
     };
-
+//hello
     // Fetch data every 5 seconds (adjust as needed)
     const fetchDataInterval = setInterval(() => {
       fetchData();

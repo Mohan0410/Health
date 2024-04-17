@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import download from "./assests/download.jpeg"
 const ThingSpeakComponent = () => {
-  const channelID = '2413448';
+  const channelID = localStorage.getItem("chanelId");
   const apiKey = 'R2GEDN121S9EWYOF';
 
   const apiUrl = `https://api.thingspeak.com/channels/${channelID}/feeds.json?api_key=${apiKey}`;
@@ -10,6 +10,7 @@ const ThingSpeakComponent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [name, setName] = useState(true);
+  const [img, setImg] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +23,8 @@ const ThingSpeakComponent = () => {
 
         const result = await response.json();
         setName(result.channel.name)
+        console.log(result.channel.description)
+        setImg(result.channel.description)
         const latestEntry = result.feeds[result.feeds.length - 1];
         
 
@@ -57,7 +60,7 @@ const ThingSpeakComponent = () => {
         {latestEntry && (
           <div>
             <h2 className='font-bold l'>Latest ThingSpeak Entry</h2>
-            <img className='' src={download}></img>
+            <img className='w-40 h-40 object-cover px-5' src={img}></img>
             <p className='flex justify-between'><span className='font-semibold'>Name :</span> {name}</p>
             <p className='flex justify-between'><span className='font-semibold'>Blood Pressure :</span> {latestEntry.field1}/{latestEntry.field2}</p>
             <p className='flex justify-between'><span className='font-semibold'>HeartRate :</span> {latestEntry.field3}</p>

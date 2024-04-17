@@ -1,9 +1,14 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
 import ThingSpeakComponent from "./thingspeak";
 import AllDataComponent from "./Datacomp";
 
+import Login from "./login";
+
 const App = () => {
+  // Check if channelId exists in localStorage
+  const channelId = localStorage.getItem('chanelId');
+
   return (
     <Router>
       <div>
@@ -15,9 +20,12 @@ const App = () => {
             <Link to="/alldata">Show all reports</Link>
           </h1>
         </header>
-        <Routes >
-          <Route path="/" element={<ThingSpeakComponent />} />
+        <Routes>
+          {/* Redirect based on localStorage */}
+          {!channelId && <Route path="/" element={<Navigate to="/login" />} />}
+          {channelId && <Route path="/" element={<ThingSpeakComponent />} />}
           <Route path="/alldata" element={<AllDataComponent />} />
+          <Route path="/login" element={<Login/>} />
         </Routes>
       </div>
     </Router>
